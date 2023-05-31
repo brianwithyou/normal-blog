@@ -1,0 +1,43 @@
+server:
+  port: 5050
+  servlet:
+    context-path: /web
+#swagger:
+#  enable: true
+#  title: 前台接口
+#  description: 前台接口文档
+#  version: 1.0.0
+#  base-package: com.brian.web
+spring:
+  main:
+    allow-bean-definition-overriding: true # 允许 Bean 覆盖，例如说 Dubbo 或者 Feign 等会存在重复定义的服务
+  application:
+    name: '@artifactId@'
+  cloud:
+    nacos:
+      discovery:
+#        namespace: normal-web
+#        public 命名空间不需要写
+#        namespace: public
+        server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
+        username: nacos
+        password: nacos
+        #ip: xx.xx.xx.xx
+      config:
+        timeout: 10000
+        #        namespace: normal-web
+        #        public 命名空间不需要写
+#        namespace: public
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yml
+        #        shared-configs:
+        #          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        username: ${spring.cloud.nacos.discovery.username}
+        password: ${spring.cloud.nacos.discovery.password}
+  # SpringCloud 2021版本之后，需要用以下方式导入nacos的配置文件
+  config:
+    import: nacos:web-application-dev.yml
+  profiles:
+#    active: @profiles.active@
+    active: dev
+

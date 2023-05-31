@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.brian</groupId>
+		<artifactId>normal-blog</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>normal-search</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>normal-search</name>
+	<description>normal-search</description>
+	<packaging>pom</packaging>
+	<modules>
+		<module>normal-search-server</module>
+		<module>normal-search-api</module>
+	</modules>
+	<properties>
+		<java.version>11</java.version>
+	</properties>
+	<dependencies>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>-->
+<!--		</dependency>-->
+	</dependencies>
+
+
+</project>

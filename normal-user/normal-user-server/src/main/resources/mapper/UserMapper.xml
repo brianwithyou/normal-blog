@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brian.user.server.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.brian.user.server.entity.User">
+            <id property="id" column="id" jdbcType="OTHER"/>
+            <result property="accountNumber" column="account_number" jdbcType="VARCHAR"/>
+            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="idCardNo" column="id_card_no" jdbcType="VARCHAR"/>
+            <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="point" column="point" jdbcType="INTEGER"/>
+            <result property="age" column="age" jdbcType="SMALLINT"/>
+            <result property="sign" column="sign" jdbcType="VARCHAR"/>
+            <result property="gender" column="gender" jdbcType="TINYINT"/>
+            <result property="wechat" column="wechat" jdbcType="VARCHAR"/>
+            <result property="vipLevel" column="vip_level" jdbcType="TINYINT"/>
+            <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="area" column="area" jdbcType="VARCHAR"/>
+            <result property="areaCode" column="area_code" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="deleted" column="deleted" jdbcType="TINYINT"/>
+            <result property="extendInfo" column="extend_info" jdbcType="VARCHAR"/>
+            <result property="lastLogin" column="last_login" jdbcType="TIMESTAMP"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,account_number,nickname,
+        username,password,id_card_no,
+        mobile,email,point,
+        age,sign,gender,
+        wechat,vip_level,birthday,
+        avatar,area,area_code,
+        address,status,deleted,
+        extend_info,last_login,create_time,
+        update_time
+    </sql>
+</mapper>

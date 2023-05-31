@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brian.web.server.mapper.BlogMapper">
+
+    <resultMap id="BaseResultMap" type="com.brian.web.server.entity.Blog">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="uid" column="uid" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="summary" column="summary" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="tagUid" column="tag_uid" jdbcType="VARCHAR"/>
+            <result property="readCount" column="read_count" jdbcType="INTEGER"/>
+            <result property="collectCount" column="collect_count" jdbcType="INTEGER"/>
+            <result property="fileUid" column="file_uid" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="adminUid" column="admin_uid" jdbcType="VARCHAR"/>
+            <result property="isOriginal" column="is_original" jdbcType="VARCHAR"/>
+            <result property="author" column="author" jdbcType="VARCHAR"/>
+            <result property="articlesPart" column="articles_part" jdbcType="VARCHAR"/>
+            <result property="blogSortUid" column="blog_sort_uid" jdbcType="VARCHAR"/>
+            <result property="level" column="level" jdbcType="TINYINT"/>
+            <result property="isPublish" column="is_publish" jdbcType="VARCHAR"/>
+            <result property="sort" column="sort" jdbcType="INTEGER"/>
+            <result property="openComment" column="open_comment" jdbcType="TINYINT"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="outsideLink" column="outside_link" jdbcType="VARCHAR"/>
+            <result property="articleSource" column="article_source" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,uid,title,
+        summary,content,tag_uid,
+        read_count,collect_count,file_uid,
+        status,create_time,update_time,
+        admin_uid,is_original,author,
+        articles_part,blog_sort_uid,level,
+        is_publish,sort,open_comment,
+        type,outside_link,
+        article_source
+    </sql>
+</mapper>

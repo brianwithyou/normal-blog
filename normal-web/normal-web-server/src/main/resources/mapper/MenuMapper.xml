@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brian.web.server.mapper.MenuMapper">
+
+    <resultMap id="BaseResultMap" type="com.brian.web.server.entity.Menu">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="navbarLevel" column="navbar_level" jdbcType="INTEGER"/>
+            <result property="summary" column="summary" jdbcType="VARCHAR"/>
+            <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+            <result property="url" column="url" jdbcType="VARCHAR"/>
+            <result property="icon" column="icon" jdbcType="VARCHAR"/>
+            <result property="isShow" column="is_show" jdbcType="TINYINT"/>
+            <result property="isJumpExternalUrl" column="is_jump_external_url" jdbcType="TINYINT"/>
+            <result property="sort" column="sort" jdbcType="INTEGER"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,navbar_level,
+        summary,parent_id,url,
+        icon,is_show,is_jump_external_url,
+        sort,status,create_time,
+        update_time
+    </sql>
+</mapper>

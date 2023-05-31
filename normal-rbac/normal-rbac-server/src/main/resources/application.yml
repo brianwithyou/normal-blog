@@ -1,0 +1,57 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /rbac
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  application:
+    name: @artifactId@
+  cloud:
+    nacos:
+      discovery:
+#        namespace: normal-web
+        server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
+        username: nacos
+        password: nacos
+#        ip: xx.xx.xx.xx
+      config:
+#        namespace: normal-web
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yml
+        #        shared-configs:
+        #          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        username: ${spring.cloud.nacos.discovery.username}
+        password: ${spring.cloud.nacos.discovery.password}
+  # SpringCloud 2021版本之后，需要用以下方式导入nacos的配置文件
+  config:
+    import: nacos:rbac-application-dev.yml
+  profiles:
+    active: @profiles.active@
+
+auth:
+  ttl: 3600 # token存储到Redis的过期时间
+  clientId: normal
+  clientSecret: normal
+#  cookieDomain: localhost
+#  cookieMaxAge: -1
+
+# 创建证书（包含一对公钥私钥）
+# keytool -genkeypair -alias normal -keyalg RSA -keypass normal -keystore normal.jks -storepass normal
+# 查询证书信息
+# keytool -list -keystore normal.jks
+# 删除别名
+# keytool -delete -alias normal -keystore normal.jks
+# 生成public key 和证书
+# keytool -list -rfc --keystore normal.jks | openssl x509 -inform pem -pubkey
+
+# 证书配置
+encrypt:
+  key-store:
+    location: classpath:/normal.jks # 证书路径
+    secret: normal # 秘钥，用于解密证书，用于从证书中获取私钥
+    alias: normal # 证书别名
+    password: normal # 证书密码
+
+

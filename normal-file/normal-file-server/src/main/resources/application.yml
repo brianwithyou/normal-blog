@@ -1,0 +1,35 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /file
+spring:
+  application:
+    name: normal-file-server
+  cloud:
+    nacos:
+      discovery:
+        #        namespace: normal-user
+        namespace: public
+        server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
+        username: nacos
+        password: nacos
+        # ip: xx.xx.xx.xx
+      config:
+        #        namespace: normal-blog
+        #        namespace: public
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yml
+        #        shared-configs:
+        #          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        username: ${spring.cloud.nacos.discovery.username}
+        password: ${spring.cloud.nacos.discovery.password}
+    # SpringCloud 2021版本之后，需要用以下方式导入nacos的配置文件
+  config:
+    #    import: nacos:application-dev.yml
+    import: nacos:file-application-dev.yml
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 30MB

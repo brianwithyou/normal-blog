@@ -1,0 +1,27 @@
+server:
+  port: 5070
+  servlet:
+    context-path: /admin
+spring:
+  application:
+    name: @artifactId@
+  cloud:
+    nacos:
+      discovery:
+        # namespace: public
+        server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
+        username: nacos
+        password: nacos
+      config:
+#        namespace: public
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yml
+        #        shared-configs:
+        #          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        username: ${spring.cloud.nacos.discovery.username}
+        password: ${spring.cloud.nacos.discovery.password}
+  # SpringCloud 2021版本之后，需要用以下方式导入nacos的配置文件
+  config:
+    import: nacos:admin-application-dev.yml
+  profiles:
+    active: @profiles.active@

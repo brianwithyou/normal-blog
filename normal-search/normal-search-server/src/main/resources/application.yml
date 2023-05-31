@@ -1,0 +1,27 @@
+server:
+  port: 8091
+  servlet:
+    context-path: /search
+spring:
+  application:
+    name: '@artifactId@'
+  cloud:
+    nacos:
+      discovery:
+        # public时，不能填namespace，否则找不到配置文件
+#        namespace: public
+        server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
+        username: nacos
+        password: nacos
+      config:
+#        namespace: public
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yml
+        #        shared-configs:
+        #          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        username: ${spring.cloud.nacos.discovery.username}
+        password: ${spring.cloud.nacos.discovery.password}
+  config:
+    import: nacos:search-application-dev.yml
+  profiles:
+    active: @profiles.active@

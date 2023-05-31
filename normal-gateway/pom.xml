@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>normal-blog</artifactId>
+        <groupId>com.brian</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <description>待定</description>
+
+    <artifactId>normal-gateway</artifactId>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+    <dependencies>
+<!-- 2023-05-14 13:44:13.084 ERROR 21744 - [ctor-http-nio-2] i.n.r.d.DnsServerAddressStreamProviders  : Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider,
+ fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'. Use DEBUG level to see the full stack:
+  java.lang.UnsatisfiedLinkError: failed to load the required native library-->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <version>4.1.75.Final</version>
+            <classifier>osx-aarch_64</classifier>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.brian</groupId>
+            <artifactId>normal-common-util</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <!-- Registry 注册中心相关 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <!--            SpringCloud Feign在Hoxton.M2 RELEASED版本之后不再使用ribbon-->
+            <!--            而是使用spring-cloud-loadbalancer，所以在不引入spring-cloud-loadbalancer情况下会报错-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Config 配置中心相关 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <!--            SpringCloud Feign在Hoxton.M2 RELEASED版本之后不再使用ribbon-->
+            <!--            而是使用spring-cloud-loadbalancer，所以在不引入spring-cloud-loadbalancer情况下会报错-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Gateway 网关相关 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-web</artifactId>-->
+<!--        </dependency>-->
+        <!--        skywalking-->
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-trace</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-opentracing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+    </dependencies>
+
+<!--    <profiles>-->
+<!--        &lt;!&ndash;使用 mvn clean package -Pprod 进行激活prod环境的配置，否则激活默认环境&ndash;&gt;-->
+<!--        <profile>-->
+<!--            <id>dev</id>-->
+<!--            <properties>-->
+<!--                &lt;!&ndash; 环境标识，需要与配置文件的名称相对应 &ndash;&gt;-->
+<!--                <profiles.active>dev</profiles.active>-->
+<!--                &lt;!&ndash;https://github.com/alibaba/nacos/issues/3460  默认的命名空间不要去设置namespace &ndash;&gt;-->
+<!--                <nacos.namespace/>-->
+<!--            </properties>-->
+<!--            <activation>-->
+<!--                &lt;!&ndash; 默认环境 &ndash;&gt;-->
+<!--                <activeByDefault>true</activeByDefault>-->
+<!--            </activation>-->
+<!--        </profile>-->
+<!--        <profile>-->
+<!--            <id>test</id>-->
+<!--            <properties>-->
+<!--                <profiles.active>test</profiles.active>-->
+<!--                <nacos.namespace>x</nacos.namespace>-->
+<!--            </properties>-->
+<!--        </profile>-->
+<!--        <profile>-->
+<!--            <id>prod</id>-->
+<!--            <properties>-->
+<!--                <profiles.active>prod</profiles.active>-->
+<!--                <nacos.namespace>x</nacos.namespace>-->
+<!--            </properties>-->
+<!--        </profile>-->
+<!--    </profiles>-->
+    <build>
+        <!-- 设置构建的 jar 包名 -->
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- 打包 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.7.7</version> <!-- 如果 spring.boot.version 版本修改，则这里也要跟着修改 -->
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal> <!-- 将引入的 jar 打入其中 -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

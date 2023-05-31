@@ -1,0 +1,34 @@
+├── normal-admin
+├── normal-base
+|  ├── normal-base-api
+|  ├── normal-base-server
+├── normal-common
+|  ├── normal-common-const
+|  ├── normal-common-core
+|  ├── normal-common-security
+|  ├── normal-common-util
+|  └── pom.xml
+├── normal-file
+|  ├── normal-file-api
+|  ├── normal-file-server
+├── normal-framework
+|  ├── normal-spring-boot-starter-minio
+|  ├── normal-spring-boot-starter-monitor
+├── normal-gateway
+├── normal-pay
+|  ├── normal-pay-api
+|  ├── normal-pay-server
+├── normal-rbac
+|  ├── normal-rbac-api
+|  ├── normal-rbac-server
+├── normal-search
+|  ├── normal-search-api
+|  ├── normal-search-server
+├── normal-user
+|  ├── normal-user-api
+|  ├── normal-user-server
+├── normal-web
+|  ├── normal-web-api
+|  ├── normal-web-server
+
+

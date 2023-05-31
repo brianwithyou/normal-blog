@@ -1,0 +1,33 @@
+server:
+  port: 8088
+spring:
+  main:
+    #  gateway引入spring-boot-starter-web需要设置此项
+    web-application-type: reactive
+  application:
+    name: normal-gateway
+  config:
+    import: nacos:gateway-application-dev.yml
+  profiles:
+#    active: @profiles.active@
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        namespace: public
+        server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
+        username: nacos
+        password: nacos
+#        ip: xx.xx.xx.xx
+      config:
+        #        namespace: public
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        file-extension: yml
+        #        shared-configs:
+        #          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        username: ${spring.cloud.nacos.discovery.username}
+        password: ${spring.cloud.nacos.discovery.password}
+
+# 启动Reactor Netty访问日志，请设置-Dreactor.netty.http.server.accessLogEnabled=true，这个配置只是将log打印在console，输出日志文件还需要设置logback
+#logging:
+#  file:

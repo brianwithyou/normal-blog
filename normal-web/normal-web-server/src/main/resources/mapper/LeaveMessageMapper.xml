@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brian.web.server.mapper.LeaveMessageMapper">
+
+    <resultMap id="BaseResultMap" type="com.brian.web.server.entity.LeaveMessage">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="authorId" column="author_id" jdbcType="BIGINT"/>
+            <result property="authorName" column="author_name" jdbcType="INTEGER"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,author_id,author_name,
+        content,status
+    </sql>
+</mapper>
