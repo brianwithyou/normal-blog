@@ -19,6 +19,8 @@ target/
 /**/*.iml
 *.ipr
 
+/**/starter-canal
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
