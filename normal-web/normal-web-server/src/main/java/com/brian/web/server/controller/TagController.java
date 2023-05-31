@@ -1,7 +1,6 @@
 package com.brian.web.server.controller;
 
 import com.brian.common.core.Result;
-import com.brian.user.api.UserFeignClient;
 import com.brian.user.api.dto.UserDTO;
 import com.brian.web.server.entity.Tag;
 import com.brian.web.server.service.TagService;
@@ -23,9 +22,6 @@ public class TagController {
 
     @Resource
     private TagService tagService;
-
-    @Resource
-    private UserFeignClient userFeignClient;
 
     @RequestMapping("/list")
     public Result<?> list() {

@@ -38,4 +38,20 @@ public class SearchController {
         return Result.success();
     }
 
+    @RequestMapping("/list")
+    public Result<?> list() {
+
+        return searchService.list();
+    }
+    @RequestMapping("/delete")
+    public Result<?> delete(@RequestBody Long id) throws IOException {
+        return searchService.deleteById(id);
+    }
+
+    @RequestMapping("/deleteAll")
+    public Result<?> deleteAll() throws IOException {
+        return searchService.deleteAll();
+    }
+
+
 }

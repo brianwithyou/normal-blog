@@ -24,6 +24,11 @@ public class BlogFeignService implements BlogFeignClient {
         List<Blog> list = blogService.list();
         return BlogConvert.INSTANCE.convertDto(list);
     }
+    @Override
+    public BlogDTO getById(Long id) {
+        Blog blog = blogService.getById(id);
+        return BlogConvert.INSTANCE.convertDto(blog);
+    }
 
     @Override
     public PageResult<BlogDTO> page(String title, Long authorId, Integer pageNum, Integer pageSize) {

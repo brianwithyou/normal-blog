@@ -13,6 +13,7 @@ spring:
         server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
         username: nacos
         password: nacos
+#        ip: xx.xx.xx.xx
       config:
 #        namespace: public
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
@@ -24,4 +25,4 @@ spring:
   config:
     import: nacos:search-application-dev.yml
   profiles:
-    active: @profiles.active@
+    active: '@profiles.active@'

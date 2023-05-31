@@ -2,27 +2,30 @@ package com.brian.search.server.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import com.brian.common.core.Result;
 import com.brian.search.api.entity.EsBlog;
 import com.brian.search.server.mapper.BlogRepository;
 import com.brian.search.server.service.SearchService;
 import com.brian.web.api.BlogFeignClient;
 import com.brian.web.api.dto.BlogDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.core.CountRequest;
 import org.elasticsearch.client.core.CountResponse;
 import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.xcontent.XContentType;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.MatchAllQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.QueryStringQueryBuilder;
+import org.elasticsearch.index.query.*;
+import org.elasticsearch.index.reindex.BulkByScrollResponse;
+import org.elasticsearch.index.reindex.DeleteByQueryRequest;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
@@ -155,10 +158,11 @@ public class SearchServiceImpl implements SearchService {
         SearchResponse searchResponse = null;
         CountResponse countResponse = null;
         List<EsBlog> content = new ArrayList<>();
+        long totalCount = 0;
 
         try {
             countResponse = restHighLevelClient.count(countRequest, RequestOptions.DEFAULT);
-            Long totalCount = countResponse.getCount();
+            totalCount = countResponse.getCount();
             searchResponse = restHighLevelClient.search(request, RequestOptions.DEFAULT);
             org.elasticsearch.search.SearchHit[] searchHits = searchResponse.getHits().getHits();
 //            SearchHit[] searchHits = (SearchHit[]) hits;
@@ -193,42 +197,59 @@ public class SearchServiceImpl implements SearchService {
             log.error("搜索失败，搜索条件: {}, error: {}", keyword, e.getMessage());
         }
 
-
-//        searchHits.getSearchHits().forEach(esBlogSearchHit -> {
-//            content.add(esBlogSearchHit.getContent());
-//        });
-
         Map<String, Object> res = new HashMap<>();
         res.put("content", content);
 //        res.put("pageNum", searchHits.get);
-//        res.put("total", searchHits.getTotalHits());
+        res.put("total", totalCount);
 //        res.put("pageNum", searchHits.getTotalHits());
         res.put("pageSize", pageSize);
         return res;
     }
 
     @Override
+    public BlogDTO insertById(long blogId) throws IOException {
+        BlogDTO blog = blogFeignClient.getById(blogId);
+        BulkRequest bulkRequest = new BulkRequest();
+        bulkRequest.add(new IndexRequest("blog").source(JSONUtil.toJsonStr(JSONUtil.parseObj(blog)), XContentType.JSON));
+        BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
+        return blog;
+    }
+
+    @Override
     public void initEsBlogs() throws IOException {
 
         // 写入数据
-//        EsBlog esBlog = new EsBlog();
-//        esBlog.setContent("医院");
-//        IndexCoordinates indexCoordinates = elasticsearchTemplate.getIndexCoordinatesFor(esBlog.getClass());
-//        IndexQuery indexQuery = new IndexQueryBuilder().withObject(esBlog).build();
-//        String documentId = elasticsearchTemplate.index(indexQuery, indexCoordinates);
         List<BlogDTO> blogs = blogFeignClient.list();
         BulkRequest bulkRequest = new BulkRequest();
         blogs.forEach(blog -> {
             bulkRequest.add(new IndexRequest("blog").source(JSONUtil.toJsonStr(JSONUtil.parseObj(blog)), XContentType.JSON));
         });
-
         BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
-//        Iterable<EsBlog> all = searchMapper.findAll();
-//        List<EsBlog> convert = BlogConvert.INSTANCE.convert(blogs);
-//        searchMapper.saveAll(convert);
-
         log.info("es data init success.");
 
+    }
+
+    public Result<?> list() {
+        Iterable<EsBlog> all = blogRepository.findAll();
+        return Result.success(all);
+    }
+    public Result<?> deleteById(Long id) throws IOException {
+        DeleteByQueryRequest deleteRequest = new DeleteByQueryRequest("blog");
+        deleteRequest.setQuery(new BoolQueryBuilder().must(new TermQueryBuilder("id", id)));
+        BulkByScrollResponse bulkByScrollResponse = restHighLevelClient.deleteByQuery(deleteRequest, RequestOptions.DEFAULT);
+        return Result.success(bulkByScrollResponse);
+    }
+
+    public Result<?> deleteAll() throws IOException {
+        DeleteRequest deleteRequest=new DeleteRequest();
+        deleteRequest.index("blog");
+
+        DeleteIndexRequest request = new DeleteIndexRequest("blog");
+        AcknowledgedResponse delete = restHighLevelClient.indices().delete(request, RequestOptions.DEFAULT);
+
+
+//        DeleteResponse delete = restHighLevelClient.delete(deleteRequest, RequestOptions.DEFAULT);
+        return Result.success(delete);
     }
 
 }

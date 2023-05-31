@@ -39,7 +39,7 @@ public class LogAspect {
             }
             requestArgs.add(arg);
         }
-        log.info(" {}.{} - {}", className, methodName, JSONUtil.toJsonStr(requestArgs));
+        log.debug(" {}.{} - {}", className, methodName, JSONUtil.toJsonStr(requestArgs));
     }
 
     /**
@@ -55,7 +55,7 @@ public class LogAspect {
     }
     @AfterReturning(pointcut = "webPoint()", returning = "res")
     public void afterWeb(JoinPoint point, Object res) {
-        log.info("return:{}", res);
+        log.debug("return:{}", res);
     }
 
 }

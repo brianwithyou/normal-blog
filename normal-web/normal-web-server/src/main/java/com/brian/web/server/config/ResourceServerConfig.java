@@ -65,6 +65,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         , "/blog/info"
                         , "/blog/info/**"
                         , "/blog/info?id=7"
+                        , "/feign/blog/getById"
+                        , "/feign/blog/list"
                         , "/server/list"
                         , "/tag/list"
                         , "/menu/list"

@@ -24,4 +24,5 @@ public interface BlogConvert {
     BlogVO convertVO(Blog blog);
 
     List<BlogDTO> convertDto(List<Blog> list);
+    BlogDTO convertDto(Blog bean);
 }

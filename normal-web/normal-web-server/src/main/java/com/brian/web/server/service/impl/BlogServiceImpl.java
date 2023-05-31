@@ -147,18 +147,6 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
                 .ne("status", 0)
                 .orderByDesc("create_time"));
 
-//        List<UserDTO> users = userFeignClient.listUsers();
-//        pageData.getRecords().forEach(datum -> {
-//            Optional<UserDTO> userOptional = users.stream().filter(user -> user.getId().equals(datum.getUid()))
-//                    .findFirst();
-//
-//            UserDTO userDTO = new UserDTO();
-//            if (userOptional.isPresent()) {
-//                userDTO = userOptional.get();
-//            }
-//            datum.setAuthor(userDTO.getUsername());
-//        });
-
         return Result.success(pageData);
     }
     @Override

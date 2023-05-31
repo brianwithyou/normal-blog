@@ -31,6 +31,10 @@ public interface BlogFeignClient {
     @ApiOperation(value = "查询所有博客", notes = "备注：需要分页查询")
     List<BlogDTO> list();
 
+    @GetMapping(PREFIX + "/getById")
+    @ApiOperation(value = "根据id查询博客", notes = "备注")
+    BlogDTO getById(@RequestParam Long id);
+
     @RequestMapping("/page")
     @ApiOperation(value = "分页查询所有博客", notes = "备注：需要分页查询")
     PageResult<BlogDTO> page(@RequestParam String title, @RequestParam Long authorId, @RequestParam Integer pageNum, @RequestParam Integer pageSize);

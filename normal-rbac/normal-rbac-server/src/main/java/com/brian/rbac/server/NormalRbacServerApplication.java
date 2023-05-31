@@ -11,7 +11,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @RefreshScope
 @SpringBootApplication
-//@Import({WebSecurityConfig.class, AuthorizationServerConfig.class})
 @MapperScan("com.brian.rbac.server.mapper")
 @EnableFeignClients(basePackages = {"com.brian.rbac.api", "com.brian.user.api"})
 public class NormalRbacServerApplication {

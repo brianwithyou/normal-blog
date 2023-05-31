@@ -19,6 +19,9 @@ public class FeignRequestInterceptor implements RequestInterceptor {
     public void apply(RequestTemplate requestTemplate) {
         // 将 调用方的header 全部 原封不动的 传到 下一级中，当本服务调用 下一级服务时，也就包含了 token
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (requestAttributes == null) {
+            return;
+        }
         Enumeration<String> headerNames = requestAttributes.getRequest().getHeaderNames();
         while (headerNames.hasMoreElements()) {
 

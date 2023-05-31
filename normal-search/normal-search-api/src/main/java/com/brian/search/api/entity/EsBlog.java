@@ -21,6 +21,7 @@ public class EsBlog {
 
     private Long uid;
 
+    @Field(type = FieldType.Text)
     private String title;
 
     private String summary;
