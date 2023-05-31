@@ -36,13 +36,6 @@ public class GlobalControllerAdvice {
         return Result.fail(errorMsg);
     }
 
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler(value = RuntimeException.class)
-//    public Result<String> handler(RuntimeException e) {
-//        String errorMsg = e.getMessage();
-//        log.error("运行时异常：{}", errorMsg, e);
-//        return Result.fail();
-//    }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = Exception.class)
     public Result<String> handler(Exception e) {

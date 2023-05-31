@@ -1,6 +1,7 @@
 package com.brian.web.server.config;
 
 import com.brian.common.core.GlobalControllerAdvice;
+import com.brian.common.core.LogAspect;
 import com.brian.common.core.interceptor.FeignRequestInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,11 @@ public class FeignConfig {
     @Bean
     public GlobalControllerAdvice globalControllerAdvice() {
         return new GlobalControllerAdvice();
+    }
+
+    @Bean
+    public LogAspect logAspect() {
+        return new LogAspect();
     }
     @Bean
     public FeignRequestInterceptor feignRequestInterceptor() {
