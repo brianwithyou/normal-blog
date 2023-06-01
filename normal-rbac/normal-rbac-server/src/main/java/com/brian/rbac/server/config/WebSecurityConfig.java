@@ -5,6 +5,7 @@ import com.brian.rbac.server.handler.JwtLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -105,22 +106,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @return res
      * @throws Exception ex
      */
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-//        return authenticationConfiguration.getAuthenticationManager();
-//    }
-
     @Bean
+    @Lazy
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-//        return authenticationManager();
     }
-//    @Bean
-//    @Override
-//    public AuthenticationManager authenticationManager() throws Exception {
-//        return super.authenticationManager();
-//    }
 
     /****
      *
@@ -129,12 +120,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
-
-        // web鉴权，使用自定义/login方法
-//        if (!AuthTypeEnum.WEB.getValue().equals(authType)) {
-//            httpSecurity.formLogin().successHandler(loginSuccessHandler).failureHandler(loginFailureHandler);
-//        }
-
         httpSecurity
                 .cors().and()
                 .csrf().disable()
@@ -147,22 +132,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
-//                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
-//                .and()
-//                .addFilter(jwtAuthenticationFilter(authenticationConfiguration))
         ;
 
-//                .formLogin()       //启用表单身份验证
-//                .and()
-//                .authorizeRequests()    //限制基于Request请求访问
-//                .anyRequest()
-//                .authenticated();       //其他请求都需要经过验证
     }
-
-//    @Bean
-//    JwtAuthenticationFilter jwtAuthenticationFilter(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-//        return new JwtAuthenticationFilter(authenticationConfiguration.getAuthenticationManager());
-//    }
 
 }
