@@ -92,9 +92,11 @@
    - [ ] 服务器监控
    - [ ] MySQL监控
    - [ ] 服务监控
+
 前台功能
 - [x] 登录、注册
 - [x] Elasticsearch高亮搜索
+- [x] canal 同步es
 - [x] 博客列表、详情、修改、删除
 - [x] 动态门户菜单
 - [x] 博客排行
@@ -108,13 +110,12 @@
 
 ### 功能界面
 
-![img.png](./doc/portainer.png)
+![img.png](portainer.png)
 
-![img.png](./doc/proxy.png)
+![img.png](proxy.png)
 TODO
 - [ ] 签到
 - [ ] rocketmq集成
-- [x] canal 同步es
 - [ ] 支付集成支付宝当面付
 - [ ] 商品管理
 - [ ] 商城
