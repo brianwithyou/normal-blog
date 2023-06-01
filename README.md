@@ -95,6 +95,7 @@
 
 前台功能
 - [x] 登录、注册
+- [x] 创作
 - [x] Elasticsearch高亮搜索
 - [x] canal 同步es
 - [x] 博客列表、详情、修改、删除
@@ -102,17 +103,24 @@
 - [x] 博客排行
 - [x] 说说
 - [x] 留言板(样式待调整)
-- [x] skywalking
 - [x] feed流分页，实现滚动分页，两个参数lastViewId, pageSize
     - 通过`zrevrangebyscore`实现通过分数分页，`zrevrangebyscore key timestamp 0 `
 - [x] 归档
 - [x] 标签
 
 ### 功能界面
+##### portainer管理
+![img.png](doc/images/portainer.png)
+##### 搜索高亮
+![img.png](doc/images/proxy.png)
+##### 创作
 
-![img.png](portainer.png)
+![img.png](./doc/images/write.png)
 
-![img.png](proxy.png)
+归档
+
+![img.png](./doc/images/归档.png)
+
 TODO
 - [ ] 签到
 - [ ] rocketmq集成
