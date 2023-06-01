@@ -109,6 +109,7 @@
 - [x] 标签
 
 ### 功能界面
+> 查看图片需要科学上网
 ##### portainer管理
 ![img.png](doc/images/portainer.png)
 ##### 搜索高亮
