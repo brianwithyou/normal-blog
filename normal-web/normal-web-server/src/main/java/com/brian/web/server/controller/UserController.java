@@ -1,9 +1,9 @@
 package com.brian.web.server.controller;
 
 import com.brian.common.core.Result;
-import com.brian.rbac.api.RbacAuthFeignClient;
 import com.brian.user.api.UserFeignClient;
 import com.brian.user.api.dto.UserDTO;
+import com.brian.user.api.dto.UserStatisticDTO;
 import com.brian.web.server.convert.UserConvert;
 import com.brian.web.server.util.ContextUtil;
 import com.brian.web.server.vo.UserVO;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author : brian
@@ -20,8 +21,6 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Resource
-    private RbacAuthFeignClient rbacAuthFeignClient;
 
     @Resource
     private UserFeignClient userFeignClient;
@@ -33,6 +32,12 @@ public class UserController {
         return Result.success(userVO);
     }
 
+    @RequestMapping("/statistic")
+    public Result<List<UserStatisticDTO>> statistic() {
+        Long id = ContextUtil.getCurrentUser().getId();
+        List<UserStatisticDTO> statistic = userFeignClient.statistic(id);
+        return Result.success(statistic);
+    }
     @RequestMapping("/update")
     public Result<UserVO> update(@RequestBody UserVO userVO) {
         UserDTO userDTO = UserConvert.INSTANCE.convertDto(userVO);

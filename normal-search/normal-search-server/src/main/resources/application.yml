@@ -10,7 +10,7 @@ spring:
       discovery:
         # public时，不能填namespace，否则找不到配置文件
 #        namespace: public
-        server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
+        server-addr: ${NACOS_HOScT:119.45.227.125}:${NACOS_PORT:8848}
         username: nacos
         password: nacos
 #        ip: xx.xx.xx.xx

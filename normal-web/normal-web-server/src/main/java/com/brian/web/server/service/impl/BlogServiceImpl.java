@@ -64,7 +64,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
         }
 
         Blog blogEntity = BlogConvert.INSTANCE.convert(blog);
-        blogEntity.setCover(blog.getCover());
+        if (StrUtil.isNotBlank(blog.getCover())) {
+            blogEntity.setCover(blog.getCover());
+        }
         // 新增
         LocalDateTime now = LocalDateTime.now();
         if (blog.getId() == null) {
@@ -251,7 +253,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     public List<BlogVO> totalCollectRank() {
 
         // 内存不够，只存id
-        Set<ZSetOperations.TypedTuple<String>> typedTuples = redisTemplate.opsForZSet().reverseRangeWithScores(REDIS_RANK_COLLECT, 0, -1);
+        Set<ZSetOperations.TypedTuple<String>> typedTuples = redisTemplate.opsForZSet().reverseRangeWithScores(REDIS_RANK_COLLECT, 0, 10);
 
         if (CollectionUtil.isNotEmpty(typedTuples)) {
             JSONArray blogIdsArray = JSONUtil.parseArray(JSONUtil.toJsonStr(typedTuples));
@@ -267,7 +269,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
 
             return BlogConvert.INSTANCE.convertVO(list);
         }
-        List<Blog> list = list(new QueryWrapper<Blog>().ne("status", 0).orderByDesc("collect_count"));
+        List<Blog> list = list(new QueryWrapper<Blog>()
+                .ne("status", 0)
+                .orderByDesc("collect_count").last(" limit 10"));
         // 加入redis
         list.forEach(item -> {
             redisTemplate.opsForZSet().add(REDIS_RANK_COLLECT, String.valueOf(item.getId()), item.getCollectCount());

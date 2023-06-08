@@ -9,8 +9,10 @@ import com.brian.common.core.PageResult;
 import com.brian.common.core.Result;
 import com.brian.user.api.UserFeignClient;
 import com.brian.user.api.dto.UserDTO;
+import com.brian.user.api.dto.UserStatisticDTO;
 import com.brian.user.server.convert.UserConvert;
 import com.brian.user.server.entity.User;
+import com.brian.user.server.mapper.UserMapper;
 import com.brian.user.server.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,6 +31,8 @@ public class UserFeignService implements UserFeignClient {
 
     @Resource
     private UserService userService;
+    @Resource
+    private UserMapper userMapper;
 
     @Resource
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -140,5 +144,10 @@ public class UserFeignService implements UserFeignClient {
         }
         boolean b = userService.updateById(user);
         log.info("更新用户头像和昵称结果：{}", b);
+    }
+
+    @Override
+    public List<UserStatisticDTO> statistic(Long id) {
+        return userMapper.getStatistic(id);
     }
 }

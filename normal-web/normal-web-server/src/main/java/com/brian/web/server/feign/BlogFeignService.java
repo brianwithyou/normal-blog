@@ -21,7 +21,7 @@ public class BlogFeignService implements BlogFeignClient {
     @Override
     public List<BlogDTO> list() {
 
-        List<Blog> list = blogService.list();
+        List<Blog> list = blogService.list(new QueryWrapper<Blog>().ne("status", 0));
         return BlogConvert.INSTANCE.convertDto(list);
     }
     @Override

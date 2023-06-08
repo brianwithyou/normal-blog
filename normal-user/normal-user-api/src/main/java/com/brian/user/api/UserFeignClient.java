@@ -5,6 +5,7 @@ import com.brian.common.constant.user.UserConst;
 import com.brian.common.core.PageResult;
 import com.brian.common.core.Result;
 import com.brian.user.api.dto.UserDTO;
+import com.brian.user.api.dto.UserStatisticDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -69,4 +70,8 @@ public interface UserFeignClient {
     @RequestMapping(PREFIX + "/update")
     @ApiOperation(value = "更新用户昵称", notes = "单个用户")
     void update(@RequestBody UserDTO userDTO);
+
+    @RequestMapping(PREFIX + "/statistic")
+    @ApiOperation(value = "根据用户id获取用户活跃统计", notes = "单个用户")
+    List<UserStatisticDTO> statistic(@RequestBody Long id);
 }

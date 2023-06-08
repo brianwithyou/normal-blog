@@ -2,7 +2,6 @@ package com.brian.rbac.server.config;
 
 import com.brian.rbac.server.handler.JwtAccessDeniedHandler;
 import com.brian.rbac.server.handler.JwtLogoutSuccessHandler;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -40,9 +39,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
     private UserDetailsServiceImpl userDetailsService;
-
-    @Value("${auth.type}")
-    private String authType;
 
     private static final String[] URL_WHITELIST = {
             // 注意 不需要加 context-path

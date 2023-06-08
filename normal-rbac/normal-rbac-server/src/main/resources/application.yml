@@ -6,18 +6,19 @@ spring:
   main:
     allow-bean-definition-overriding: true
     allow-circular-references: true
+#    allow-circular-references: false
   application:
-    name: @artifactId@
+    name: normal-rbac-server
   cloud:
     nacos:
       discovery:
-#        namespace: normal-web
+        namespace: ${spring.profiles.active:dev}
         server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
         username: nacos
         password: nacos
 #        ip: xx.xx.xx.xx
       config:
-#        namespace: normal-web
+        namespace: ${spring.profiles.active:dev}
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yml
         #        shared-configs:
@@ -28,7 +29,7 @@ spring:
   config:
     import: nacos:rbac-application-dev.yml
   profiles:
-    active: @profiles.active@
+    active: dev
 
 auth:
   ttl: 3600 # token存储到Redis的过期时间

@@ -10,6 +10,9 @@ server:
 #  version: 1.0.0
 #  base-package: com.brian.web
 spring:
+  profiles:
+    #    active: @profiles.active@
+    active: dev
   main:
     allow-bean-definition-overriding: true # 允许 Bean 覆盖，例如说 Dubbo 或者 Feign 等会存在重复定义的服务
   application:
@@ -19,7 +22,8 @@ spring:
       discovery:
 #        namespace: normal-web
 #        public 命名空间不需要写
-#        namespace: public
+#        namespace: ${spring.profiles.active:public}
+        namespace: dev
         server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
         username: nacos
         password: nacos
@@ -28,7 +32,8 @@ spring:
         timeout: 10000
         #        namespace: normal-web
         #        public 命名空间不需要写
-#        namespace: public
+#        namespace: ${spring.profiles.active:public}
+        namespace: dev
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yml
         #        shared-configs:
@@ -38,6 +43,3 @@ spring:
   # SpringCloud 2021版本之后，需要用以下方式导入nacos的配置文件
   config:
     import: nacos:web-application-dev.yml
-  profiles:
-#    active: @profiles.active@
-    active: dev
