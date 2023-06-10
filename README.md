@@ -1,5 +1,7 @@
 # normal-blog
 
+临时访问地址：<a href='http://normalblog.cn'>normal-blog</a>
+
 ```text
 分层逻辑：
 一般访问量大或者数据量大或者业务量大的的服务单独分层、例如秒杀、
@@ -104,7 +106,6 @@
 - [x] 标签
 
 ### 功能界面
-临时访问地址：<a href='http://normalblog.cn'>normal-blog</a>
 
 > 查看图片需要科学上网
 ##### portainer管理
