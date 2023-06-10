@@ -9,14 +9,14 @@ spring:
     nacos:
       discovery:
         #        namespace: normal-user
-        namespace: public
+        namespace: ${spring.profiles.active:dev}
         server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
         username: nacos
         password: nacos
 #        ip: xx.xx.xx.xx
       config:
         #        namespace: normal-blog
-        #        namespace: public
+        namespace: ${spring.profiles.active:dev}
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yml
         #        shared-configs:

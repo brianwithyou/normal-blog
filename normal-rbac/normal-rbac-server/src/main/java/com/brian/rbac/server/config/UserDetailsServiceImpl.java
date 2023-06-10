@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /***
- *
+ * <p>
  * 自定义授权认证类
  * @author brian
  */

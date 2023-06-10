@@ -14,7 +14,6 @@ spring:
   cloud:
     nacos:
       discovery:
-#        namespace: public
         namespace: ${spring.profiles.active:dev}
         server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
         username: nacos

@@ -1,4 +1,6 @@
+mvn -f ../../pom.xml clean install
 
+mvn -f pom.xml clean package
 
 docker build . -t xx.xx.xx.xx:5000/normal-search-server:0.0.1-SNAPSHOT
 

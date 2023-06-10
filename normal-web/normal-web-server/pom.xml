@@ -145,37 +145,6 @@
         </dependency>
     </dependencies>
 
-<!--    <profiles>-->
-<!--        &lt;!&ndash;使用 mvn clean package -Pprod 进行激活prod环境的配置，否则激活默认环境&ndash;&gt;-->
-<!--        <profile>-->
-<!--            <id>dev</id>-->
-<!--            <properties>-->
-<!--                &lt;!&ndash; 环境标识，需要与配置文件的名称相对应 &ndash;&gt;-->
-<!--                <profiles.active>dev</profiles.active>-->
-<!--                &lt;!&ndash;https://github.com/alibaba/nacos/issues/3460  默认的命名空间不要去设置namespace &ndash;&gt;-->
-<!--                <nacos.namespace/>-->
-<!--            </properties>-->
-<!--            <activation>-->
-<!--                &lt;!&ndash; 默认环境 &ndash;&gt;-->
-<!--                <activeByDefault>true</activeByDefault>-->
-<!--            </activation>-->
-<!--        </profile>-->
-<!--        <profile>-->
-<!--            <id>test</id>-->
-<!--            <properties>-->
-<!--                <profiles.active>test</profiles.active>-->
-<!--                <nacos.namespace>x</nacos.namespace>-->
-<!--            </properties>-->
-<!--        </profile>-->
-<!--        <profile>-->
-<!--            <id>prod</id>-->
-<!--            <properties>-->
-<!--                <profiles.active>prod</profiles.active>-->
-<!--                <nacos.namespace>x</nacos.namespace>-->
-<!--            </properties>-->
-<!--        </profile>-->
-<!--    </profiles>-->
-
     <build>
         <!-- 设置构建的 jar 包名 -->
         <finalName>${project.artifactId}</finalName>

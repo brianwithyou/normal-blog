@@ -1,4 +1,3 @@
-
 server:
   port: 5050
   servlet:
@@ -23,7 +22,7 @@ spring:
 #        namespace: normal-web
 #        public 命名空间不需要写
 #        namespace: ${spring.profiles.active:public}
-        namespace: dev
+        namespace: ${spring.profiles.active:dev}
         server-addr: ${NACOS_HOST:119.45.227.125}:${NACOS_PORT:8848}
         username: nacos
         password: nacos
@@ -32,8 +31,7 @@ spring:
         timeout: 10000
         #        namespace: normal-web
         #        public 命名空间不需要写
-#        namespace: ${spring.profiles.active:public}
-        namespace: dev
+        namespace: ${spring.profiles.active:dev}
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yml
         #        shared-configs:

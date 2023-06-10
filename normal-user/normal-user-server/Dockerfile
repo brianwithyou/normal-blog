@@ -7,4 +7,4 @@ RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
      && apk del tzdata
 
 ADD ./target/normal-user-server.jar app.jar
-ENTRYPOINT ["java","-Xms256m","-Xmx256m","-jar","/app.jar"]
+ENTRYPOINT ["java","-Xms256m","-Xmx256m", "-Dspring.profiles.active=prod", "-jar","/app.jar"]
