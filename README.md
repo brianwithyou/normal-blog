@@ -7,15 +7,10 @@
 
 1. 业务功能模块分层 + 基础服务分层(search + rbac + file + web + admin)
 ├── normal-admin
-├── normal-base
-|  ├── normal-base-api
-|  ├── normal-base-server
 ├── normal-common
 |  ├── normal-common-const
 |  ├── normal-common-core
-|  ├── normal-common-security
 |  ├── normal-common-util
-|  └── pom.xml
 ├── normal-file
 |  ├── normal-file-api
 |  ├── normal-file-server
@@ -109,6 +104,8 @@
 - [x] 标签
 
 ### 功能界面
+临时访问地址：<a href='http://normalblog.cn'>normal-blog</a>
+
 > 查看图片需要科学上网
 ##### portainer管理
 ![img.png](doc/images/portainer.png)
