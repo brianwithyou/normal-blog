@@ -60,18 +60,11 @@ public class SearchServiceImpl implements SearchService {
     private BlogFeignClient blogFeignClient;
     @Resource
     private ElasticsearchRestTemplate elasticsearchTemplate;
-
     @Resource
     private RestHighLevelClient restHighLevelClient;
 
     @Override
     public Map<String, Object> search(Map<String, String> param) {
-
-//        Iterable<EsBlog> all = blogRepository.findAll();
-//        all.forEach(blog -> {
-//            System.out.println(blog);
-//        });
-//        System.out.println(all);
 
         NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(new MatchAllQueryBuilder()).build();
         searchQuery.addAggregation(AggregationBuilders.terms("blogCategory").field("category"));
@@ -79,12 +72,7 @@ public class SearchServiceImpl implements SearchService {
         SearchHits<EsBlog> search = elasticsearchTemplate.search(searchQuery, EsBlog.class);
         List<SearchHit<EsBlog>> searchHits = search.getSearchHits();
 
-//        List<SearchHit<BlogDTO>> searchHits = search.getSearchHits();
-//        System.out.println(searchHits);
-
         Object aggregations = search.getAggregations().aggregations();
-        System.out.println();
-
 
         searchHits.forEach(hit -> {
             EsBlog blog = hit.getContent();
@@ -217,7 +205,8 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public void initEsBlogs() throws IOException {
-
+        // 删除数据
+        deleteAll();
         // 写入数据
         List<BlogDTO> blogs = blogFeignClient.list();
         BulkRequest bulkRequest = new BulkRequest();
@@ -226,7 +215,6 @@ public class SearchServiceImpl implements SearchService {
         });
         BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
         log.info("es data init success.");
-
     }
 
     public Result<?> list() {
@@ -246,9 +234,8 @@ public class SearchServiceImpl implements SearchService {
 
         DeleteIndexRequest request = new DeleteIndexRequest("blog");
         AcknowledgedResponse delete = restHighLevelClient.indices().delete(request, RequestOptions.DEFAULT);
-
-
 //        DeleteResponse delete = restHighLevelClient.delete(deleteRequest, RequestOptions.DEFAULT);
+        log.info("删除es数据：${}", delete);
         return Result.success(delete);
     }
 

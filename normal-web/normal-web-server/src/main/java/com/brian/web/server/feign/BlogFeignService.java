@@ -26,7 +26,8 @@ public class BlogFeignService implements BlogFeignClient {
     }
     @Override
     public BlogDTO getById(Long id) {
-        Blog blog = blogService.getById(id);
+        Blog blog = blogService.getOne(new QueryWrapper<Blog>()
+                .eq("id", id).ne("status", 0));
         return BlogConvert.INSTANCE.convertDto(blog);
     }
 
